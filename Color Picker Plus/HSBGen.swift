@@ -1,5 +1,5 @@
-import Foundation
-import CoreGraphics
+// This file is based on the Huekit project by louisdh
+// https://github.com/louisdh/huekit
 
 import Foundation
 import CoreGraphics
@@ -13,6 +13,12 @@ public struct RGB: Hashable {
     
     /// In range 0...1
     public var b: CGFloat
+}
+
+enum HSBComponent: Int {
+    case hue = 0
+    case saturation = 1
+    case brightness = 2
 }
 
 public extension RGB {
@@ -213,6 +219,41 @@ class HSBGen {
         return context
     }
     
+    /// Generates an image where the specified barComponentIndex (0=H, 1=S, 2=V)
+    /// varies across the x-axis of the 256x1 pixel image and the other components
+    /// remain at the constant value specified in the hsv array.
+    static func createHSVBarContentImage(hsbComponent: HSBComponent, hsv: [CGFloat]) -> CGImage? {
+        
+        var hsv = hsv
+        
+        guard let context = createBGRxImageContext(w: 256, h: 1) else {
+            return nil
+        }
+        
+        guard var ptr = context.data?.assumingMemoryBound(to: UInt8.self) else {
+            return nil
+        }
+        
+        for x in 0..<256 {
+            
+            hsv[hsbComponent.rawValue] = CGFloat(x) / 255.0
+            
+            let hsvVal = HSV(h: hsv[0] * 360.0, s: hsv[1], v: hsv[2])
+            
+            let rgb = hsvVal.toRGB()
+            
+            ptr[0] = UInt8(rgb.b * 255.0)
+            ptr[1] = UInt8(rgb.g * 255.0)
+            ptr[2] = UInt8(rgb.r * 255.0)
+            
+            ptr = ptr.advanced(by: 4)
+        }
+        
+        let image = context.makeImage()
+        
+        return image
+    }
+    
     static private func blend(_ value: UInt, _ percentIn255: UInt) -> UInt {
         return (value) * (percentIn255) / 255
     }
@@ -244,9 +285,12 @@ class HSBGen {
         
         // This doesn't use Swift ranges because those are pretty slow in debug builds
         
+        // Width
         var s: UInt = 0
         
         while true {
+            
+            // Every row
             
             var ptr = dataPtr
             
@@ -254,9 +298,12 @@ class HSBGen {
             let g_hs: UInt = 255 - blend(s, g_s)
             let b_hs: UInt = 255 - blend(s, b_s)
             
+            //var v: UInt = UInt(height-100)
             var v: UInt = 255
             
             while true {
+                
+                // Every column
                 
                 // Really, these should all be of the form used in blend(),
                 // which does a divide by 255. However, integer divide is

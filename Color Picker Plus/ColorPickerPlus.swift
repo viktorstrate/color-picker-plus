@@ -3,7 +3,6 @@
 //  Color Picker Plus
 //
 //  Created by Viktor Hundahl Strate on 13/06/2018.
-//  Copyright © 2018 Viktor Hundahl Strate. All rights reserved.
 //
 
 import Foundation

@@ -19,7 +19,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Viktor Hundahl Strate. All rights reserved.</string>
+	<string>General Public License v3 - viktorstrate</string>
 	<key>NSPrincipalClass</key>
 	<string>ColorPickerPlus.ColorPickerPlus</string>
 </dict>
