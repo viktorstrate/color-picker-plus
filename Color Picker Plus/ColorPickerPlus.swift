@@ -8,10 +8,25 @@
 import Foundation
 import AppKit
 
-
 public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     
     @IBOutlet var pickerView: NSView!
+    @IBOutlet weak var colorGraphicsView: ColorGraphicsView!
+    @IBOutlet weak var currentColorView: CurrentColorView!
+    
+    @IBOutlet weak var radioHue: NSButton!
+    @IBOutlet weak var radioSaturation: NSButton!
+    @IBOutlet weak var radioBrightness: NSButton!
+    
+    
+    @IBOutlet weak var txtHue: NSTextField!
+    @IBOutlet weak var txtSaturation: NSTextField!
+    @IBOutlet weak var txtBrightness: NSTextField!
+    @IBOutlet weak var txtHex: NSTextField!
+    
+    @IBOutlet weak var copyPopUp: NSPopUpButton!
+    
+    var firstColorChange = true
     
     public func supportsMode(_ mode: NSColorPanelMode) -> Bool {
         return true
@@ -28,13 +43,17 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
                 NSLog("Error: Could not find nib named \(pickerNibName)")
                 fatalError()
             }
+            
+            colorGraphicsView.delegate = self
+
         }
         
         return pickerView
     }
     
     public func setColor(_ newColor: NSColor) {
-        NSLog("Changing color")
+        NSLog("ColorPickerPlus: setColor() called")
+        colorChanged(color: newColor)
     }
     
     private let bundle = Bundle(for: ColorPickerPlus.self)
@@ -48,4 +67,33 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
         return NSSize(width: 500, height: 270)
     }
     
+    public override var buttonToolTip: String {
+        get {
+            return "Color Picker Plus"
+        }
+    }
+    
 }
+
+extension ColorPickerPlus: ChangeColorDelegate {
+    
+    func colorChanged(color: NSColor) {
+        
+        if (firstColorChange) {
+            firstColorChange = false
+        } else {
+            currentColorView.color = color
+            
+            let rgb = RGB(color: color)
+            txtHex.stringValue = rgb.toHEX()
+            
+            super.colorPanel.color = color
+        }
+        
+        
+    }
+    
+    
+}
+
+

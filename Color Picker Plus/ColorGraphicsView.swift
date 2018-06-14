@@ -13,6 +13,8 @@ class ColorGraphicsView: NSView {
     override func prepareForInterfaceBuilder() {
         // Prepare variables here
     }
+    
+    var delegate: ChangeColorDelegate?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -23,39 +25,58 @@ class ColorGraphicsView: NSView {
         drawAlphaSlider(context)
         drawSecondarySlider(context)
         
-        NSLog("Bounds \(bounds.width), \(bounds.height)")
-        
-        
-        // Drawing code here.
     }
     
     fileprivate struct Constants {
-        static let bottomSliderHeight: CGFloat = 24.0
+        static let bottomSliderHeight: CGFloat = 16.0
         static let verticalMargin: CGFloat = 8.0
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        delegate?.colorChanged(color: NSColor.red)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        NSLog("ColorPickerPlus: Mouse Dragged: \(event.absoluteX), \(event.absoluteY)")
     }
     
     // Rects
     
     func mainViewRect() -> NSRect {
-        let offset: CGFloat = Constants.bottomSliderHeight * 2 + Constants.verticalMargin * 2
-        return NSRect(x: bounds.minX, y: bounds.minY + offset, width: bounds.width, height: bounds.height - offset)
+        
+        let bottomMargin: CGFloat = Constants.bottomSliderHeight * 2 + Constants.verticalMargin * 2
+        let height = bounds.height - bottomMargin
+        
+        let smallestSize = min(bounds.width, height)
+        let difference = max(height - bounds.width, 0.0)
+        
+        return NSRect(x: bounds.minX, y: bounds.minY + bottomMargin + difference, width: smallestSize, height: smallestSize)
     }
     
     func alphaSliderRect() -> NSRect {
-        return NSRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: Constants.bottomSliderHeight)
+        
+        let mainRect = mainViewRect()
+        
+        return NSRect(x: bounds.minX, y: mainRect.minY - (Constants.verticalMargin * 2 + Constants.bottomSliderHeight * 2), width: mainRect.width, height: Constants.bottomSliderHeight)
     }
     
     func secondarySliderRect() -> NSRect {
-        let offset = Constants.bottomSliderHeight + Constants.verticalMargin
-        return NSRect(x: bounds.minX, y: bounds.minY + offset, width: bounds.width, height: Constants.bottomSliderHeight)
+        
+        let mainRect = mainViewRect()
+        
+        return NSRect(x: bounds.minX, y: mainRect.minY - (Constants.verticalMargin + Constants.bottomSliderHeight), width: mainRect.width, height: Constants.bottomSliderHeight)
     }
     
     // Draw functions
+    var hsbSquare: CGImage?
     
     func drawMainView(_ context: CGContext) {
-        let square = HSBGen.createSaturationBrightnessSquareContentImageWithHue(hue: 0.0)!
         
-        context.draw(square, in: mainViewRect())
+        if (hsbSquare == nil) {
+            hsbSquare = HSBGen.createSaturationBrightnessSquareContentImageWithHue(hue: 0.0)
+        }
+        
+        context.draw(hsbSquare!, in: mainViewRect())
     }
     
     func drawSecondarySlider(_ context: CGContext) {
@@ -78,4 +99,8 @@ class ColorGraphicsView: NSView {
         
         context.resetClip()
     }
+}
+
+protocol ChangeColorDelegate {
+    func colorChanged(color: NSColor);
 }

@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34509CE420D328C400CF78C0 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE320D328C400CF78C0 /* RGB.swift */; };
+		34509CE620D3293500CF78C0 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE520D3293500CF78C0 /* HSV.swift */; };
 		3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491077920D13DF80058E50D /* ColorPickerPlus.swift */; };
 		3491078020D149740058E50D /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3491077F20D149740058E50D /* ToolbarIcon.tiff */; };
 		3491078220D14A080058E50D /* ColorPickerPlus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491078120D14A080058E50D /* ColorPickerPlus.xib */; };
 		3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491078520D164BF0058E50D /* ColorGraphicsView.swift */; };
 		3491078820D1771D0058E50D /* HSBGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491078720D1771D0058E50D /* HSBGen.swift */; };
+		34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BC620E20D27DA90093CCFC /* CurrentColorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		34509CE320D328C400CF78C0 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
+		34509CE520D3293500CF78C0 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
 		3491077020D13DDC0058E50D /* Color Picker Plus.colorPicker */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Color Picker Plus.colorPicker"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3491077320D13DDC0058E50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3491077920D13DF80058E50D /* ColorPickerPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerPlus.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		3491078120D14A080058E50D /* ColorPickerPlus.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerPlus.xib; sourceTree = "<group>"; };
 		3491078520D164BF0058E50D /* ColorGraphicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGraphicsView.swift; sourceTree = "<group>"; };
 		3491078720D1771D0058E50D /* HSBGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSBGen.swift; sourceTree = "<group>"; };
+		34BC620E20D27DA90093CCFC /* CurrentColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentColorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		34509CE220D328B000CF78C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34509CE320D328C400CF78C0 /* RGB.swift */,
+				34509CE520D3293500CF78C0 /* HSV.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3491076720D13DDC0058E50D = {
 			isa = PBXGroup;
 			children = (
@@ -54,11 +69,13 @@
 		3491077220D13DDC0058E50D /* Color Picker Plus */ = {
 			isa = PBXGroup;
 			children = (
+				34509CE220D328B000CF78C0 /* Models */,
 				3491077F20D149740058E50D /* ToolbarIcon.tiff */,
 				3491077320D13DDC0058E50D /* Info.plist */,
 				3491077920D13DF80058E50D /* ColorPickerPlus.swift */,
 				3491078120D14A080058E50D /* ColorPickerPlus.xib */,
 				3491078520D164BF0058E50D /* ColorGraphicsView.swift */,
+				34BC620E20D27DA90093CCFC /* CurrentColorView.swift */,
 				3491078720D1771D0058E50D /* HSBGen.swift */,
 			);
 			path = "Color Picker Plus";
@@ -133,8 +150,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34509CE420D328C400CF78C0 /* RGB.swift in Sources */,
 				3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */,
 				3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */,
+				34509CE620D3293500CF78C0 /* HSV.swift in Sources */,
+				34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */,
 				3491078820D1771D0058E50D /* HSBGen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
