@@ -32,7 +32,7 @@ class ColorGraphicsView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let context = NSGraphicsContext.current()!.cgContext
+        let context = NSGraphicsContext.current!.cgContext
         
         drawMainView(context)
         drawMainCircleIndicator(context)
@@ -48,90 +48,39 @@ class ColorGraphicsView: NSView {
         static let verticalMargin: CGFloat = 8.0
     }
     
-    override func mouseDown(with event: NSEvent) {
-        
-        guard let localPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
-            Logger.warn(message: "Could not convert window point to local point")
-            return
-        }
-        
-        if (mainViewRect().contains(localPoint)) {
-            selectedSlider = .Main
-            
-        } else if (secondarySliderRect().contains(localPoint)) {
-            selectedSlider = .Secondary
-            
-        } else if (alphaSliderRect().contains(localPoint)) {
-            selectedSlider = .Alpha
-        }
-        
-        Logger.debug(message: "Selected slider \(selectedSlider)")
-    }
     
-    override func mouseDragged(with event: NSEvent) {
-        
-        var newColor = currentColor
-        
-        if (selectedSlider == .Main) {
-            let mainWindowRect = convert(mainViewRect(), to: window?.contentView)
-            
-            var x = (event.locationInWindow.x - mainWindowRect.minX) / mainWindowRect.width
-            var y = (event.locationInWindow.y - mainWindowRect.minY) / mainWindowRect.height
-            
-            x = min(1, x)
-            x = max(0, x)
-            
-            y = min(1, y)
-            y = max(0, y)
-            
-            Logger.debug(message: "Saturation \(x), Brightness \(y)")
-
-            newColor.s = x
-            newColor.v = y
-            
-        } else if (selectedSlider == .Secondary) {
-            let secondaryWindowRect = convert(secondarySliderRect(), to: window?.contentView)
-            
-            var x = (event.locationInWindow.x - secondaryWindowRect.minX) / secondaryWindowRect.width
-            
-            x = min(1, x)
-            x = max(0, x)
-            
-            Logger.debug(message: "Hue \(x)")
-            
-            newColor.h = x * 360
-        }
-        
-        currentColor = newColor
-        delegate?.colorChanged(color: newColor)
-        
-    }
     
     // Rects
     
+    func totalRect() -> NSRect {
+        return bounds.insetBy(dx: 16, dy: 16)
+    }
+    
     func mainViewRect() -> NSRect {
         
+        let total = totalRect()
+        
         let bottomMargin: CGFloat = Constants.bottomSliderHeight * 2 + Constants.verticalMargin * 2
-        let height = bounds.height - bottomMargin
+        let height = total.height - bottomMargin
         
-        let smallestSize = min(bounds.width, height)
-        let difference = max(height - bounds.width, 0.0)
+        let smallestSize = min(total.width, height)
+        let difference = max(height - total.width, 0.0)
         
-        return NSRect(x: bounds.minX, y: bounds.minY + bottomMargin + difference, width: smallestSize, height: smallestSize)
+        return NSRect(x: total.minX, y: total.minY + bottomMargin + difference, width: smallestSize, height: smallestSize)
     }
     
     func alphaSliderRect() -> NSRect {
         
         let mainRect = mainViewRect()
         
-        return NSRect(x: bounds.minX, y: mainRect.minY - (Constants.verticalMargin * 2 + Constants.bottomSliderHeight * 2), width: mainRect.width, height: Constants.bottomSliderHeight)
+        return NSRect(x: totalRect().minX, y: mainRect.minY - (Constants.verticalMargin * 2 + Constants.bottomSliderHeight * 2), width: mainRect.width, height: Constants.bottomSliderHeight)
     }
     
     func secondarySliderRect() -> NSRect {
         
         let mainRect = mainViewRect()
         
-        return NSRect(x: bounds.minX, y: mainRect.minY - (Constants.verticalMargin + Constants.bottomSliderHeight), width: mainRect.width, height: Constants.bottomSliderHeight)
+        return NSRect(x: totalRect().minX, y: mainRect.minY - (Constants.verticalMargin + Constants.bottomSliderHeight), width: mainRect.width, height: Constants.bottomSliderHeight)
     }
     
     // Draw functions
@@ -155,8 +104,7 @@ class ColorGraphicsView: NSView {
         let bar = HSBGen.createHSVBarContentImage(hsbComponent: HSBComponent.hue, hsv: [1, 1, 1])!
         context.draw(bar, in: sliderRect)
         
-        let x = currentColor.h / 360 * sliderRect.width
-        
+        let x = currentColor.h / 360 * sliderRect.width + totalRect().minX
         drawPointingArrow(context, position: CGPoint(x: x, y: sliderRect.maxY))
     }
     
@@ -174,13 +122,16 @@ class ColorGraphicsView: NSView {
         context.drawLinearGradient(gradient, start: CGPoint(x: alphaRec.minX, y: alphaRec.maxY), end: CGPoint(x: alphaRec.maxX, y: alphaRec.maxY), options: CGGradientDrawingOptions.drawsBeforeStartLocation)
         
         context.resetClip()
+        
+        let x = currentColor.a * alphaRec.width + totalRect().minX
+        drawPointingArrow(context, position: CGPoint(x: x, y: alphaRec.maxY))
     }
     
     func drawMainCircleIndicator(_ context: CGContext) {
         
         let viewRect = mainViewRect()
         
-        let x = currentColor.s * viewRect.width
+        let x = currentColor.s * viewRect.width + totalRect().minX
         let y = currentColor.v * viewRect.height
         
         context.clip(to: viewRect)
@@ -219,6 +170,103 @@ class ColorGraphicsView: NSView {
         context.drawPath(using: CGPathDrawingMode.fillStroke)
         
         
+    }
+}
+
+// Mouse events
+extension ColorGraphicsView {
+    override func mouseDown(with event: NSEvent) {
+        
+        guard let localPoint = window?.contentView?.convert(event.locationInWindow, to: self) else {
+            Logger.warn(message: "Could not convert window point to local point")
+            return
+        }
+        
+        if (mainViewRect().contains(localPoint)) {
+            selectedSlider = .Main
+            updateMainCursor(locationInWindow: event.locationInWindow)
+            
+        } else if (secondarySliderRect().contains(localPoint)) {
+            selectedSlider = .Secondary
+            updateSecondaryCursor(locationInWindow: event.locationInWindow)
+            
+        } else if (alphaSliderRect().contains(localPoint)) {
+            selectedSlider = .Alpha
+            updateAlphaCursor(locationInWindow: event.locationInWindow)
+        }
+        
+        Logger.debug(message: "Selected slider \(selectedSlider)")
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        
+        if (selectedSlider == .Main) {
+            updateMainCursor(locationInWindow: event.locationInWindow)
+            
+        } else if (selectedSlider == .Secondary) {
+            updateSecondaryCursor(locationInWindow: event.locationInWindow)
+            
+        } else if (selectedSlider == .Alpha) {
+            updateAlphaCursor(locationInWindow: event.locationInWindow)
+            
+        }
+        
+    }
+    
+    func updateMainCursor(locationInWindow: NSPoint) {
+        var newColor = currentColor
+        let mainWindowRect = convert(mainViewRect(), to: window?.contentView)
+        
+        var x = (locationInWindow.x - mainWindowRect.minX) / mainWindowRect.width
+        var y = (locationInWindow.y - mainWindowRect.minY) / mainWindowRect.height
+        
+        x = min(1, x)
+        x = max(0, x)
+        
+        y = min(1, y)
+        y = max(0, y)
+        
+        Logger.debug(message: "Saturation \(x), Brightness \(y)")
+        
+        newColor.s = x
+        newColor.v = y
+        
+        currentColor = newColor
+        delegate?.colorChanged(color: newColor)
+    }
+    
+    func updateSecondaryCursor(locationInWindow: NSPoint) {
+        var newColor = currentColor
+        let secondaryWindowRect = convert(secondarySliderRect(), to: window?.contentView)
+        
+        var x = (locationInWindow.x - secondaryWindowRect.minX) / secondaryWindowRect.width
+        
+        x = min(1, x)
+        x = max(0, x)
+        
+        Logger.debug(message: "Hue \(x)")
+        
+        newColor.h = round(x * 360)
+        
+        currentColor = newColor
+        delegate?.colorChanged(color: newColor)
+    }
+    
+    func updateAlphaCursor(locationInWindow: NSPoint) {
+        var newColor = currentColor
+        let alphaWindowRect = convert(alphaSliderRect(), to: window?.contentView)
+        
+        var x = (locationInWindow.x - alphaWindowRect.minX) / alphaWindowRect.width
+        
+        x = min(1, x)
+        x = max(0, x)
+        
+        Logger.debug(message: "Alpha \(x)")
+        
+        newColor.a = x
+        
+        currentColor = newColor
+        delegate?.colorChanged(color: newColor)
     }
 }
 

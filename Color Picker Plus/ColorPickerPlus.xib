@@ -16,9 +16,12 @@
                 <outlet property="radioBrightness" destination="Nwa-wF-P3W" id="LvE-Il-wnk"/>
                 <outlet property="radioHue" destination="qXH-1l-JWm" id="Qbb-rE-Lcd"/>
                 <outlet property="radioSaturation" destination="5hp-fc-OO0" id="rz4-Ef-KRn"/>
+                <outlet property="txtBlue" destination="OFF-dh-jID" id="RX7-N3-wwb"/>
                 <outlet property="txtBrightness" destination="lhq-oV-Ebz" id="Mxq-Vz-5T0"/>
+                <outlet property="txtGreen" destination="BVS-R3-iSJ" id="iFp-0e-Z9O"/>
                 <outlet property="txtHex" destination="8PU-Py-5OS" id="wMn-P6-rrh"/>
                 <outlet property="txtHue" destination="Dmi-eZ-E7y" id="qI0-MD-9vC"/>
+                <outlet property="txtRed" destination="JEv-fu-S9J" id="CIX-D9-R3n"/>
                 <outlet property="txtSaturation" destination="RpC-Cw-ELb" id="zCG-dF-Wel"/>
             </connections>
         </customObject>
@@ -29,7 +32,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="oqF-eh-Efd" customClass="ColorGraphicsView" customModule="Color_Picker_Plus" customModuleProvider="target">
-                    <rect key="frame" x="16" y="20" width="272" height="320"/>
+                    <rect key="frame" x="0.0" y="4" width="304" height="352"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="oqF-eh-Efd" secondAttribute="height" multiplier="1:1" constant="-48" id="SFa-yv-UTL"/>
                     </constraints>
@@ -125,6 +128,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="ln4-BJ-Mlu"/>
+                                            </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RpC-Cw-ELb">
                                             <rect key="frame" x="0.0" y="32" width="48" height="22"/>
@@ -133,6 +139,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="auZ-Oo-gd4"/>
+                                            </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhq-oV-Ebz">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
@@ -141,6 +150,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="TTt-XB-zkE"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -263,6 +275,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="e6P-gD-kXm"/>
+                                            </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BVS-R3-iSJ">
                                             <rect key="frame" x="0.0" y="32" width="48" height="22"/>
@@ -271,6 +286,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="ze9-ES-Bob"/>
+                                            </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OFF-dh-jID">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
@@ -279,6 +297,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <action selector="colorFieldChanged:" target="-2" id="5Mc-Ni-kuA"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -346,6 +367,9 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <action selector="colorFieldChanged:" target="-2" id="mth-xB-VQh"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                             <constraints>
@@ -380,13 +404,13 @@
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="oqF-eh-Efd" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="16" id="O2j-hm-3LC"/>
+                <constraint firstItem="oqF-eh-Efd" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="O2j-hm-3LC"/>
                 <constraint firstItem="q7Y-uj-GJr" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="16" id="Tuf-vS-Co3"/>
                 <constraint firstAttribute="trailing" secondItem="q7Y-uj-GJr" secondAttribute="trailing" priority="100" constant="16" id="VCK-lQ-HOf"/>
-                <constraint firstItem="q7Y-uj-GJr" firstAttribute="leading" secondItem="oqF-eh-Efd" secondAttribute="trailing" constant="16" id="aDS-is-I00"/>
-                <constraint firstItem="q7Y-uj-GJr" firstAttribute="height" secondItem="oqF-eh-Efd" secondAttribute="height" id="k57-54-CE6"/>
-                <constraint firstItem="oqF-eh-Efd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="16" id="uid-9o-ziL"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oqF-eh-Efd" secondAttribute="bottom" constant="16" id="vvJ-8R-4gw"/>
+                <constraint firstItem="q7Y-uj-GJr" firstAttribute="leading" secondItem="oqF-eh-Efd" secondAttribute="trailing" id="aDS-is-I00"/>
+                <constraint firstItem="q7Y-uj-GJr" firstAttribute="height" secondItem="oqF-eh-Efd" secondAttribute="height" constant="-32" id="k57-54-CE6"/>
+                <constraint firstItem="oqF-eh-Efd" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="uid-9o-ziL"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oqF-eh-Efd" secondAttribute="bottom" id="vvJ-8R-4gw"/>
             </constraints>
             <point key="canvasLocation" x="-81" y="209"/>
         </customView>

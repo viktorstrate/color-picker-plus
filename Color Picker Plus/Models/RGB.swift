@@ -19,23 +19,58 @@ public struct RGB: Hashable {
 
 public extension RGB {
     init (color: NSColor) {
-        r = color.redComponent
-        g = color.greenComponent
-        b = color.blueComponent
+        
+        var convertedColor: NSColor!
+        
+        if (color.colorSpace != .genericRGB) {
+            convertedColor = color.usingColorSpace(NSColorSpace.genericRGB)!
+        } else {
+            convertedColor = color
+        }
+        
+        r = convertedColor.redComponent
+        g = convertedColor.greenComponent
+        b = convertedColor.blueComponent
     }
 }
 
 public extension RGB {
     func toHEX() -> String {
         
-        let hexR = convertNumber(hex: r)
-        let hexG = convertNumber(hex: g)
-        let hexB = convertNumber(hex: b)
+        let hexR = convertNumberToHex(number: r)
+        let hexG = convertNumberToHex(number: g)
+        let hexB = convertNumberToHex(number: b)
         
         return hexR + hexG + hexB
     }
     
-    fileprivate func convertNumber(hex number: CGFloat) -> String {
+    func toNSColor() -> NSColor {
+        return NSColor(red: r, green: g, blue: b, alpha: 1.0)
+    }
+    
+    static func fromHEX(_ string: NSString) -> RGB? {
+        if (string.length != 6) {
+            return nil
+        }
+        
+        let r = convertHexToNumber(hex: string.substring(with: NSRange(location: 0, length: 2)))
+        let g = convertHexToNumber(hex: string.substring(with: NSRange(location: 2, length: 2)))
+        let b = convertHexToNumber(hex: string.substring(with: NSRange(location: 4, length: 2)))
+        
+        Logger.debug(message: "Converted values: r \(String(describing: r)), g \(String(describing: g)), b \(String(describing: b))")
+        
+        if (r == nil || g == nil || b == nil) {
+            return nil
+        }
+        
+        let newRGB = RGB(r: CGFloat(r!) / 255.0, g: CGFloat(g!) / 255.0, b: CGFloat(b!) / 255.0)
+        
+        Logger.debug(message: "New RGB \(newRGB)")
+        
+        return newRGB
+    }
+    
+    fileprivate func convertNumberToHex(number: CGFloat) -> String {
         var strNum = String(Int(number * 255), radix: 16)
         
         if (strNum.count < 2) {
@@ -43,91 +78,57 @@ public extension RGB {
         }
         
         return strNum
-        
+    }
+    
+    fileprivate static func convertHexToNumber(hex string: String) -> Int? {
+        return Int(string, radix: 16)
     }
     
 }
 
 public extension RGB {
     
-    func toHSV(preserveHS: Bool, h: CGFloat = 0, s: CGFloat = 0) -> HSV {
+    func toHSV() -> HSV {
+        let minimum: CGFloat = min(r, g, b)
+        let maximum: CGFloat = max(r, g, b)
         
-        var h = h
-        var s = s
-        var v: CGFloat = 0
+        let delta: CGFloat = maximum - minimum
         
-        var max = r
+        var hue: CGFloat
+        var saturation: CGFloat
+        let value: CGFloat = maximum
         
-        if max < g {
-            max = g
-        }
-        
-        if max < b {
-            max = b
-        }
-        
-        var min = r
-        
-        if min > g {
-            min = g
-        }
-        
-        if min > b {
-            min = b
-        }
-        
-        // Brightness (aka Value)
-        v = max
-        
-        // Saturation
-        var sat: CGFloat = 0.0
-        
-        if max != 0.0 {
-            sat = (max - min) / max
-            s = sat
+        // Find saturation
+        if (maximum != 0) {
+            saturation = delta / maximum
         } else {
-            sat = 0.0
-            
-            // Black, so sat is undefined, use 0
-            if !preserveHS {
-                s = 0.0
-            }
+            // r = g = b = 0 (black), hue is undefined
+            saturation = 0
         }
         
-        // Hue
-        var delta: CGFloat = 0
-        
-        if sat == 0.0 {
-            // No color, so hue is undefined, use 0
-            if !preserveHS {
-                h = 0.0
-            }
-        } else {
-            delta = max - min
-            
-            var hue: CGFloat = 0
-            
-            if r == max {
+        // Find hue
+        if (delta != 0) {
+            if (r == maximum) {
                 hue = (g - b) / delta
-            } else if g == max {
+                
+            } else if (g == maximum) {
                 hue = 2 + (b - r) / delta
+                
             } else {
                 hue = 4 + (r - g) / delta
             }
-            
-            hue /= 6.0
-            
-            if hue < 0.0 {
-                hue += 1.0
-            }
-            
-            // 0.0 and 1.0 hues are actually both the same (red)
-            if !preserveHS || abs(hue - h) != 1.0 {
-                h = hue
-            }
+        } else {
+            hue = 0
         }
         
-        return HSV(h: h, s: s, v: v)
+        hue *= 60
+        
+        if (hue < 0) {
+            hue += 360
+        }
+        
+        return HSV(h: hue, s: saturation, v: value)
+        
     }
     
 }

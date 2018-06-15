@@ -43,22 +43,29 @@ class CurrentColorView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
+        let context = NSGraphicsContext.current!.cgContext
         
         guard color != nil else {
             NSColor.black.setFill()
-            NSRectFill(bounds)
+            context.fill(bounds)
             return
         }
         
         if (previousColor != nil) {
             color!.setFill()
-            NSRectFill(NSRect(x: bounds.minX, y: bounds.minY + bounds.height / 2, width: bounds.width, height: bounds.height / 2))
+            
+            let topRect = NSRect(x: bounds.minX, y: bounds.minY + bounds.height / 2,
+                                 width: bounds.width, height: bounds.height / 2)
+            let bottomRect = NSRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: bounds.height / 2)
+            
+            context.fill(topRect)
             
             previousColor!.setFill()
-            NSRectFill(NSRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: bounds.height / 2))
+            context.fill(bottomRect)
         } else {
             color!.setFill()
-            NSRectFill(bounds)
+            //NSRectFill(bounds)
+            context.fill(bounds)
         }
 
         // Drawing code here.

@@ -39,6 +39,7 @@ extension HSV {
         var convertedColor: NSColor!
         
         if (color.colorSpace != .genericRGB) {
+            Logger.debug(message: "Changing colorspace from '\(color.colorSpace)' before converting to HSV")
             convertedColor = color.usingColorSpace(NSColorSpace.genericRGB)!
         } else {
             convertedColor = color
@@ -52,6 +53,11 @@ extension HSV {
     
     func toNSColor() -> NSColor {
         return NSColor(hue: h / 360, saturation: s, brightness: v, alpha: a)
+    }
+    
+    /// Round hue value
+    func rounded() -> HSV {
+        return HSV(h: h.rounded(), s: s, v: v)
     }
     
     /// These functions convert between an RGB value with components in the
