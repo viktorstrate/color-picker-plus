@@ -4,6 +4,7 @@
 // https://github.com/louisdh/huekit
 
 import Foundation
+import AppKit
 
 public struct HSV: Hashable {
     /// In degrees (range 0...360)
@@ -15,9 +16,43 @@ public struct HSV: Hashable {
     /// Percentage in range 0...1
     /// Also known as "brightness" (B)
     public var v: CGFloat
+    
+    public var a: CGFloat
+    
+    init (h: CGFloat, s: CGFloat, v: CGFloat) {
+        self.h = h
+        self.s = s
+        self.v = v
+        self.a = 1
+    }
+    
+    init (h: CGFloat, s: CGFloat, v: CGFloat, a: CGFloat) {
+        self.init(h: h, s: s, v: v)
+        self.a = 1
+    }
 }
 
 extension HSV {
+    
+    init (color: NSColor) {
+        
+        var convertedColor: NSColor!
+        
+        if (color.colorSpace != .genericRGB) {
+            convertedColor = color.usingColorSpace(NSColorSpace.genericRGB)!
+        } else {
+            convertedColor = color
+        }
+        
+        self.h = convertedColor.hueComponent * 360
+        self.s = convertedColor.saturationComponent
+        self.v = convertedColor.brightnessComponent
+        self.a = convertedColor.alphaComponent
+    }
+    
+    func toNSColor() -> NSColor {
+        return NSColor(hue: h / 360, saturation: s, brightness: v, alpha: a)
+    }
     
     /// These functions convert between an RGB value with components in the
     /// 0.0..1.0 range to HSV where Hue is 0 .. 360 and Saturation and

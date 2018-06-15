@@ -32,7 +32,7 @@ class CurrentColorView: NSView {
         
         //let previousColorRect = NSRect(x: frame.minX, y: frame.minY, width: frame.width, height: frame.height / 2)
         
-        NSLog("ColorPickerPlus: Frame \(previousColorRect.minX), \(previousColorRect.minY) Click \(event.locationInWindow.x), \(event.locationInWindow.y)")
+        Logger.debug(message: "Frame \(previousColorRect.minX), \(previousColorRect.minY) Click \(event.locationInWindow.x), \(event.locationInWindow.y)")
         
         
         if (previousColorRect.contains(event.locationInWindow)) {

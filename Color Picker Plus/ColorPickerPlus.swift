@@ -29,7 +29,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     var firstColorChange = true
     
     public func supportsMode(_ mode: NSColorPanelMode) -> Bool {
-        return true
+        return mode == NSColorPanelMode.HSB
     }
     
     public func currentMode() -> NSColorPanelMode {
@@ -40,7 +40,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
         if (initialRequest) {
             let pickerNibName = "ColorPickerPlus"
             guard bundle.loadNibNamed(pickerNibName, owner: self, topLevelObjects: nil) else {
-                NSLog("Error: Could not find nib named \(pickerNibName)")
+                Logger.error(message: "Could not find nib named \(pickerNibName)")
                 fatalError()
             }
             
@@ -52,8 +52,10 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     }
     
     public func setColor(_ newColor: NSColor) {
-        NSLog("ColorPickerPlus: setColor() called")
-        colorChanged(color: newColor)
+        Logger.debug(message: "setColor() called")
+        let hsv = HSV(color: newColor)
+        colorGraphicsView.currentColor = hsv
+        colorChanged(color: hsv)
     }
     
     private let bundle = Bundle(for: ColorPickerPlus.self)
@@ -64,7 +66,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     }
     
     public override var minContentSize: NSSize {
-        return NSSize(width: 500, height: 270)
+        return NSSize(width: 570, height: 356)
     }
     
     public override var buttonToolTip: String {
@@ -77,17 +79,16 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
 
 extension ColorPickerPlus: ChangeColorDelegate {
     
-    func colorChanged(color: NSColor) {
+    func colorChanged(color: HSV) {
         
         if (firstColorChange) {
             firstColorChange = false
         } else {
-            currentColorView.color = color
+            currentColorView.color = color.toNSColor()
             
-            let rgb = RGB(color: color)
-            txtHex.stringValue = rgb.toHEX()
+            txtHex.stringValue = color.toRGB().toHEX()
             
-            super.colorPanel.color = color
+            super.colorPanel.color = color.toNSColor()
         }
         
         

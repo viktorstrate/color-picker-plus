@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		34509CE420D328C400CF78C0 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE320D328C400CF78C0 /* RGB.swift */; };
 		34509CE620D3293500CF78C0 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE520D3293500CF78C0 /* HSV.swift */; };
+		34509CEA20D3ADDF00CF78C0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE920D3ADDF00CF78C0 /* Logger.swift */; };
 		3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491077920D13DF80058E50D /* ColorPickerPlus.swift */; };
 		3491078020D149740058E50D /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3491077F20D149740058E50D /* ToolbarIcon.tiff */; };
 		3491078220D14A080058E50D /* ColorPickerPlus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491078120D14A080058E50D /* ColorPickerPlus.xib */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		34509CE320D328C400CF78C0 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		34509CE520D3293500CF78C0 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
+		34509CE920D3ADDF00CF78C0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3491077020D13DDC0058E50D /* Color Picker Plus.colorPicker */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Color Picker Plus.colorPicker"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3491077320D13DDC0058E50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3491077920D13DF80058E50D /* ColorPickerPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerPlus.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				3491078520D164BF0058E50D /* ColorGraphicsView.swift */,
 				34BC620E20D27DA90093CCFC /* CurrentColorView.swift */,
 				3491078720D1771D0058E50D /* HSBGen.swift */,
+				34509CE920D3ADDF00CF78C0 /* Logger.swift */,
 			);
 			path = "Color Picker Plus";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				34509CE420D328C400CF78C0 /* RGB.swift in Sources */,
 				3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */,
 				3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */,
+				34509CEA20D3ADDF00CF78C0 /* Logger.swift in Sources */,
 				34509CE620D3293500CF78C0 /* HSV.swift in Sources */,
 				34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */,
 				3491078820D1771D0058E50D /* HSBGen.swift in Sources */,
@@ -285,6 +289,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "dk.qpqp.Color-Picker-Plus";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
