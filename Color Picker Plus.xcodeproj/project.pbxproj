@@ -283,7 +283,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Color Picker Plus/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -307,7 +306,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Color Picker Plus/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

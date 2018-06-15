@@ -51,6 +51,9 @@ class CurrentColorView: NSView {
             return
         }
         
+        // Background for alpha colors
+        ColorGraphicsView.drawTransparentGridOverlay(rect: bounds, context: context)
+        
         if (previousColor != nil) {
             color!.setFill()
             

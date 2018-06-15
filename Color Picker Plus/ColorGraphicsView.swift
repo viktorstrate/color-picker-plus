@@ -15,9 +15,10 @@ class ColorGraphicsView: NSView {
     }
     
     var delegate: ChangeColorDelegate?
-    var selectedSlider: Sliders = .Main
+    var selectedSlider: Sliders = .None
     
     enum Sliders {
+        case None
         case Main
         case Secondary
         case Alpha
@@ -111,9 +112,11 @@ class ColorGraphicsView: NSView {
     func drawAlphaSlider(_ context: CGContext) {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
-        let color = NSColor.red.cgColor
+        let color = HSV(h: currentColor.h, s: 1, v: 1).toNSColor().cgColor
         let colors = [color.copy(alpha: 0), color] as CFArray
         let alphaRec = alphaSliderRect()
+        
+        ColorGraphicsView.drawTransparentGridOverlay(rect: alphaRec, context: context)
         
         let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: nil)!
         
@@ -168,8 +171,30 @@ class ColorGraphicsView: NSView {
         NSColor.white.setFill()
         
         context.drawPath(using: CGPathDrawingMode.fillStroke)
+    }
+    
+    static func drawTransparentGridOverlay(rect: NSRect, context: CGContext) {
+        let squareSize: CGFloat = 8
         
+        context.clip(to: rect)
         
+        for x in 0...Int(rect.width / squareSize) {
+            for y in 0...Int(rect.height / squareSize) {
+                let evenX = x % 2 == 0
+                let evenY = y % 2 == 0
+                let even = (!evenX && evenY) || (evenX && !evenY)
+                
+                if (even) {
+                    NSColor.darkGray.setFill()
+                } else {
+                    NSColor.lightGray.setFill()
+                }
+                
+                context.fill(CGRect(x: rect.minX + CGFloat(x) * squareSize, y: rect.minY + CGFloat(y) * squareSize, width: squareSize, height: squareSize))
+            }
+        }
+        
+        context.resetClip()
     }
 }
 
@@ -193,6 +218,8 @@ extension ColorGraphicsView {
         } else if (alphaSliderRect().contains(localPoint)) {
             selectedSlider = .Alpha
             updateAlphaCursor(locationInWindow: event.locationInWindow)
+        } else {
+            selectedSlider = .None
         }
         
         Logger.debug(message: "Selected slider \(selectedSlider)")
