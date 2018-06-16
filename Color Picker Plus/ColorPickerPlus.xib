@@ -92,6 +92,9 @@
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="changeColorComponentAction:" target="-2" id="2t2-a2-sch"/>
+                                            </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5hp-fc-OO0">
                                             <rect key="frame" x="-1" y="33" width="89" height="18"/>
@@ -99,6 +102,9 @@
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="changeColorComponentAction:" target="-2" id="Bn0-QR-8Bh"/>
+                                            </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nwa-wF-P3W">
                                             <rect key="frame" x="-1" y="-1" width="91" height="18"/>
@@ -106,6 +112,9 @@
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="changeColorComponentAction:" target="-2" id="biU-ZO-lFN"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <visibilityPriorities>
@@ -335,7 +344,7 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="75" id="610-jW-rZs"/>
                             </constraints>
-                            <popUpButtonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="VZw-du-psE" id="g4c-Pt-Ryk">
+                            <popUpButtonCell key="cell" type="push" title="Copy" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="g4c-Pt-Ryk">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="NzG-sA-drK">

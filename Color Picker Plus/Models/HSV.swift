@@ -109,4 +109,55 @@ extension HSV {
     }
     
     */
+    
+    static func hueToRGB(hue h: CGFloat) -> RGB {
+        
+        let hPrime = h / 60.0
+        
+        let x = 1.0 - abs(hPrime.truncatingRemainder(dividingBy: 2.0) - 1.0)
+        
+        let r: CGFloat
+        let g: CGFloat
+        let b: CGFloat
+        
+        if hPrime < 1.0 {
+            
+            r = 1
+            g = x
+            b = 0
+            
+        } else if hPrime < 2.0 {
+            
+            r = x
+            g = 1
+            b = 0
+            
+        } else if hPrime < 3.0 {
+            
+            r = 0
+            g = 1
+            b = x
+            
+        } else if hPrime < 4.0 {
+            
+            r = 0
+            g = x
+            b = 1
+            
+        } else if hPrime < 5.0 {
+            
+            r = x
+            g = 0
+            b = 1
+            
+        } else {
+            
+            r = 1
+            g = 0
+            b = x
+            
+        }
+        
+        return RGB(r: r, g: g, b: b)
+    }
 }

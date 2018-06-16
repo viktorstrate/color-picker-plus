@@ -117,6 +117,30 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
         pasteboard.setString(string as String, forType: .string)
     }
     
+    @IBAction func changeColorComponentAction(_ sender: NSButton) {
+        Logger.debug(message: "Changing active color component")
+        
+        if (sender == radioHue) {
+            radioBrightness.state = .off
+            radioSaturation.state = .off
+            
+            colorGraphicsView.selectedHSBComponent = .hue
+            
+        } else if (sender == radioSaturation) {
+            radioBrightness.state = .off
+            radioHue.state = .off
+            
+            colorGraphicsView.selectedHSBComponent = .saturation
+            
+        } else if (sender == radioBrightness) {
+            radioHue.state = .off
+            radioSaturation.state = .off
+            
+            colorGraphicsView.selectedHSBComponent = .brightness
+            
+        }
+    }
+    
     /// Called when the user changes any of the text fields
     @IBAction func colorFieldChanged(_ sender: NSTextField) {
         Logger.debug(message: "Color textField changed \(sender.debugDescription)")
@@ -303,16 +327,29 @@ extension ColorPickerPlus: ChangeColorDelegate {
         let floatB = floatingNumberFormatter.string(from: NSNumber(value: Float(rgb.b)))!
         
         copyPopUp.removeAllItems()
-        copyPopUp.addItems(withTitles: [
-            "Copy",
-            "HEX - #\(rgb.toHEX())",
-            "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)",
-            "RGB - \(floatR), \(floatG), \(floatB)",
-            "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)",
-            "Web RGB - rgb(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue))",
-            "Web RGBa - rgba(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue), \(txtAlpha.stringValue))",
-            "Web HSL - hsl(\(txtHue.stringValue), \(txtSaturation.stringValue)%, \(txtBrightness.stringValue)%)"
-        ])
+        let copyMenu = copyPopUp.menu!
+        
+        copyMenu.addItem(withTitle: "Copy", action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "HEX - #\(rgb.toHEX())", action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)", action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "Float RGB - \(floatR), \(floatG), \(floatB)", action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)", action: nil, keyEquivalent: "")
+        
+        copyMenu.addItem(NSMenuItem.separator())
+        
+        copyMenu.addItem(withTitle: "Web RGB - rgb(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue))",
+            action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "Web RGBa - rgba(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue), \(txtAlpha.stringValue))", action: nil, keyEquivalent: "")
+        copyMenu.addItem(withTitle: "Web HSL - hsl(\(txtHue.stringValue), \(txtSaturation.stringValue)%, \(txtBrightness.stringValue)%)", action: nil, keyEquivalent: "")
+        
+        /*copyPopUp.addItems(withTitles: [
+            ,
+            ,
+            ,
+            ,
+            ,
+         
+        ])*/
         
     }
     

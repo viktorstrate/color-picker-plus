@@ -12,10 +12,16 @@ class ColorGraphicsView: NSView {
     
     override func prepareForInterfaceBuilder() {
         currentColor = HSV(h: 40, s: 0.8, v: 0.7)
+        selectedHSBComponent = .brightness
     }
     
     var delegate: ChangeColorDelegate?
     var selectedSlider: Sliders = .None
+    var selectedHSBComponent: HSBComponent = .hue {
+        didSet {
+            needsDisplay = true
+        }
+    }
     
     enum Sliders {
         case None
@@ -87,12 +93,30 @@ class ColorGraphicsView: NSView {
     // Draw functions
     var hsbSquare: CGImage?
     var hsbSquareColor: HSV = HSV(h: 0, s: 1, v: 1)
+    var hsbSquarePreviousComponet: HSBComponent? = nil
     
     func drawMainView(_ context: CGContext) {
         
-        if (hsbSquare == nil || hsbSquareColor.h != currentColor.h) {
+        if (hsbSquare == nil || hsbSquarePreviousComponet == nil ||
+            hsbSquarePreviousComponet != selectedHSBComponent || hsbSquareColor.h != currentColor.h) {
+            
             hsbSquareColor = currentColor
-            hsbSquare = HSBGen.createSaturationBrightnessSquareContentImageWithHue(hue: currentColor.h)
+            
+            switch (selectedHSBComponent) {
+            case .hue:
+                Logger.debug(message: "Draw mode: hue")
+                hsbSquare = HSBGen.createSaturationBrightnessSquareContentImageWithHue(hue: currentColor.h)
+                break
+            case .saturation:
+                Logger.debug(message: "Draw mode: saturation")
+                hsbSquare = HSBGen.createHueBrightnessSquareContentImageWithSaturation(saturation: currentColor.s)
+                break
+            case .brightness:
+                Logger.debug(message: "Draw mode: brightness")
+                hsbSquare = HSBGen.createHueSaturationSquareContentImageWithBrightness(brightness: currentColor.v)
+                break
+            }
+            
         }
         
         context.draw(hsbSquare!, in: mainViewRect())
@@ -102,17 +126,32 @@ class ColorGraphicsView: NSView {
         
         let sliderRect = secondarySliderRect()
         
-        let bar = HSBGen.createHSVBarContentImage(hsbComponent: HSBComponent.hue, hsv: [1, 1, 1])!
+        let bar = HSBGen.createHSVBarContentImage(hsbComponent: selectedHSBComponent, hsv: currentColor)!
         context.draw(bar, in: sliderRect)
         
-        let x = currentColor.h / 360 * sliderRect.width + totalRect().minX
+        var x: CGFloat = 0
+        
+        switch (selectedHSBComponent) {
+        case .hue:
+            x = currentColor.h / 360 * sliderRect.width + totalRect().minX
+            break
+        case .saturation:
+            x = currentColor.s * sliderRect.width + totalRect().minX
+            break
+        case .brightness:
+            x = currentColor.v * sliderRect.width + totalRect().minX
+            break
+        }
+        
+        
         drawPointingArrow(context, position: CGPoint(x: x, y: sliderRect.maxY))
     }
     
     func drawAlphaSlider(_ context: CGContext) {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
-        let color = HSV(h: currentColor.h, s: 1, v: 1).toNSColor().cgColor
+        let color = currentColor.toNSColor().withAlphaComponent(1).cgColor
+        
         let colors = [color.copy(alpha: 0), color] as CFArray
         let alphaRec = alphaSliderRect()
         
@@ -134,8 +173,23 @@ class ColorGraphicsView: NSView {
         
         let viewRect = mainViewRect()
         
-        let x = currentColor.s * viewRect.width + totalRect().minX
-        let y = currentColor.v * viewRect.height
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        
+        switch (selectedHSBComponent) {
+        case .hue:
+            x = currentColor.s * viewRect.width + totalRect().minX
+            y = currentColor.v * viewRect.height
+            break
+        case .saturation:
+            x = currentColor.h / 360 * viewRect.width + totalRect().minX
+            y = currentColor.v * viewRect.height
+            break
+        case .brightness:
+            x = currentColor.h / 360 * viewRect.width + totalRect().minX
+            y = currentColor.s * viewRect.height
+            break
+        }
         
         context.clip(to: viewRect)
         
@@ -253,10 +307,20 @@ extension ColorGraphicsView {
         y = min(1, y)
         y = max(0, y)
         
-        Logger.debug(message: "Saturation \(x), Brightness \(y)")
-        
-        newColor.s = x
-        newColor.v = y
+        switch (selectedHSBComponent) {
+        case .hue:
+            newColor.s = x
+            newColor.v = y
+            break
+        case .saturation:
+            newColor.h = round(x * 360)
+            newColor.v = y
+            break
+        case .brightness:
+            newColor.h = round(x * 360)
+            newColor.s = y
+            break
+        }
         
         currentColor = newColor
         delegate?.colorChanged(color: newColor)
@@ -271,9 +335,17 @@ extension ColorGraphicsView {
         x = min(1, x)
         x = max(0, x)
         
-        Logger.debug(message: "Hue \(x)")
-        
-        newColor.h = round(x * 360)
+        switch (selectedHSBComponent) {
+        case .hue:
+            newColor.h = round(x * 360)
+            break
+        case .saturation:
+            newColor.s = x
+            break
+        case .brightness:
+            newColor.v = x
+            break
+        }
         
         currentColor = newColor
         delegate?.colorChanged(color: newColor)
