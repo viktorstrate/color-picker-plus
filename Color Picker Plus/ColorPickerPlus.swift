@@ -52,11 +52,10 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
                 Logger.error(message: "Could not find nib named \(pickerNibName)")
                 fatalError()
             }
-            
-            radioHue.state = NSControl.StateValue.on
-            
-            colorGraphicsView.delegate = self
 
+            radioHue.state = NSControl.StateValue.on
+
+            colorGraphicsView.delegate = self
         }
         
         return pickerView
@@ -330,26 +329,31 @@ extension ColorPickerPlus: ChangeColorDelegate {
         let copyMenu = copyPopUp.menu!
         
         copyMenu.addItem(withTitle: "Copy", action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "HEX - #\(rgb.toHEX())", action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)", action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "Float RGB - \(floatR), \(floatG), \(floatB)", action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)", action: nil, keyEquivalent: "")
+        
+        copyMenu.addItem(withTitle: "HEX - #\(rgb.toHEX())", action: nil, keyEquivalent: "c")
+        
+        copyMenu.addItem(withTitle: "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)", action: nil, keyEquivalent: "r")
+        
+        copyMenu.addItem(withTitle: "Float RGB - \(floatR), \(floatG), \(floatB)", action: nil, keyEquivalent: "R")
+        
+        copyMenu.addItem(withTitle: "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)", action: nil, keyEquivalent: "H")
         
         copyMenu.addItem(NSMenuItem.separator())
         
-        copyMenu.addItem(withTitle: "Web RGB - rgb(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue))",
-            action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "Web RGBa - rgba(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue), \(txtAlpha.stringValue))", action: nil, keyEquivalent: "")
-        copyMenu.addItem(withTitle: "Web HSL - hsl(\(txtHue.stringValue), \(txtSaturation.stringValue)%, \(txtBrightness.stringValue)%)", action: nil, keyEquivalent: "")
+        let webRGBItem = NSMenuItem(title: "Web RGB - rgb(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue))", action: nil, keyEquivalent: "w")
+        webRGBItem.keyEquivalentModifierMask = [.command, .option]
         
-        /*copyPopUp.addItems(withTitles: [
-            ,
-            ,
-            ,
-            ,
-            ,
-         
-        ])*/
+        copyMenu.addItem(webRGBItem)
+        
+        let webRGBaItem = NSMenuItem(title: "Web RGBa - rgba(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue), \(txtAlpha.stringValue))", action: nil, keyEquivalent: "w")
+        webRGBaItem.keyEquivalentModifierMask = [.command, .shift]
+        
+        copyMenu.addItem(webRGBaItem)
+        
+        let webHSLItem = NSMenuItem(title: "Web HSL - hsl(\(txtHue.stringValue), \(txtSaturation.stringValue)%, \(txtBrightness.stringValue)%)", action: nil, keyEquivalent: "w")
+        webHSLItem.keyEquivalentModifierMask = [.command, .option, .shift]
+        
+        copyMenu.addItem(webHSLItem)
         
     }
     

@@ -81,14 +81,14 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Bu-Yz-R04">
-                            <rect key="frame" x="8" y="160" width="159" height="86"/>
+                            <rect key="frame" x="0.0" y="160" width="159" height="86"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfX-l0-tI2" userLabel="Radio Buttons">
                                     <rect key="frame" x="0.0" y="2" width="88" height="84"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qXH-1l-JWm">
                                             <rect key="frame" x="-1" y="67" width="51" height="18"/>
-                                            <buttonCell key="cell" type="radio" title="Hue:" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="YuF-Ui-Z5v">
+                                            <buttonCell key="cell" type="radio" title="Hue:" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="YuF-Ui-Z5v">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -234,7 +234,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lxn-OB-rvi">
-                            <rect key="frame" x="8" y="48" width="95" height="86"/>
+                            <rect key="frame" x="0.0" y="48" width="95" height="86"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="muO-Dc-Hpg">
                                     <rect key="frame" x="0.0" y="2" width="41" height="81"/>
@@ -398,7 +398,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-rc-sbV">
-                            <rect key="frame" x="111" y="48" width="108" height="22"/>
+                            <rect key="frame" x="103" y="48" width="108" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N0j-Qs-4Ja">
                                     <rect key="frame" x="-2" y="3" width="43" height="17"/>
@@ -453,12 +453,12 @@
                         <constraint firstItem="kdX-rc-sbV" firstAttribute="leading" secondItem="lxn-OB-rvi" secondAttribute="trailing" constant="8" id="7xR-eX-zcD"/>
                         <constraint firstItem="kdX-rc-sbV" firstAttribute="bottom" secondItem="lxn-OB-rvi" secondAttribute="bottom" id="9gw-bb-qIK"/>
                         <constraint firstItem="2Bu-Yz-R04" firstAttribute="top" secondItem="620-J9-FsS" secondAttribute="bottom" constant="26" id="F2W-u4-dO9"/>
-                        <constraint firstItem="lxn-OB-rvi" firstAttribute="leading" secondItem="q7Y-uj-GJr" secondAttribute="leading" constant="8" id="J9p-vk-a0p"/>
+                        <constraint firstItem="lxn-OB-rvi" firstAttribute="leading" secondItem="q7Y-uj-GJr" secondAttribute="leading" id="J9p-vk-a0p"/>
                         <constraint firstAttribute="width" constant="250" id="LUe-tZ-DyW"/>
                         <constraint firstAttribute="trailing" secondItem="Wsc-u6-09p" secondAttribute="trailing" id="V29-bb-QVz"/>
                         <constraint firstAttribute="trailing" secondItem="JiC-in-bay" secondAttribute="trailing" id="WVi-ws-ecE"/>
                         <constraint firstItem="620-J9-FsS" firstAttribute="top" secondItem="q7Y-uj-GJr" secondAttribute="top" id="amo-B4-O7y"/>
-                        <constraint firstItem="2Bu-Yz-R04" firstAttribute="leading" secondItem="q7Y-uj-GJr" secondAttribute="leading" constant="8" id="dHz-V6-XK3"/>
+                        <constraint firstItem="2Bu-Yz-R04" firstAttribute="leading" secondItem="q7Y-uj-GJr" secondAttribute="leading" id="dHz-V6-XK3"/>
                         <constraint firstAttribute="bottom" secondItem="JiC-in-bay" secondAttribute="bottom" id="e4P-bQ-coz"/>
                         <constraint firstItem="Wsc-u6-09p" firstAttribute="leading" secondItem="620-J9-FsS" secondAttribute="trailing" constant="8" id="f7T-dE-gel"/>
                         <constraint firstItem="lxn-OB-rvi" firstAttribute="top" secondItem="2Bu-Yz-R04" secondAttribute="bottom" constant="26" id="fdf-Oa-r0U"/>
