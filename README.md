@@ -15,7 +15,7 @@ Choose between multiple color picker modes
 
 Quickly copy the color in different formats
 
-<img width="200" alt="screenshot" src="https://user-images.githubusercontent.com/4233458/41502039-bbc48ba6-71b0-11e8-9d6c-752d2c4408da.png">
+<img width="200" alt="screenshot" src="https://user-images.githubusercontent.com/4233458/41822805-dce39a7a-77f5-11e8-8bad-a09a406d7bb3.png">
 
 ## Installation
 
