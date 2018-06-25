@@ -87,29 +87,29 @@ extension HSV {
         }
     }
     
-    /// These functions convert between an RGB value with components in the
-    /// 0.0..1.0 range to HSV where Hue is 0 .. 360 and Saturation and
-    /// Value (aka Brightness) are percentages expressed as 0.0..1.0.
-    //
-    /// Note that HSB (B = Brightness) and HSV (V = Value) are interchangeable
-    /// names that mean the same thing. I use V here as it is unambiguous
-    /// relative to the B in RGB, which is Blue.
-    /*func toRGB() -> RGB {
+    func equals(hsv other: HSV) -> Bool {
+
+        if self.h.rounded() != other.h.rounded() {
+            Logger.debug(message: "Hue are not the same \(self.h) != \(other.h)")
+            return false
+        }
         
-        var rgb = self.hueToRGB()
+        if (self.s * 100).rounded() != (other.s * 100).rounded() {
+            Logger.debug(message: "Saturation are not the same \(self.s) != \(other.s)")
+            return false
+        }
         
-        let c = v * s
-        let m = v - c
+        if (self.v * 100).rounded() != (other.v * 100).rounded() {
+            Logger.debug(message: "Values are not the same \(self.v) != \(other.v)")
+        }
         
-        rgb.r = rgb.r * c + m
-        rgb.g = rgb.g * c + m
-        rgb.b = rgb.b * c + m
+        if (self.a * 100).rounded() != (other.a * 100).rounded() {
+            Logger.debug(message: "Values are not the same \(self.a) != \(other.a)")
+        }
         
-        return rgb
+        return true
     }
-    
-    */
-    
+
     static func hueToRGB(hue h: CGFloat) -> RGB {
         
         let hPrime = h / 60.0

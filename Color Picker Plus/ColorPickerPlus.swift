@@ -298,8 +298,22 @@ extension ColorPickerPlus: ChangeColorDelegate {
     }
     
     func updateTextFields(color: HSV) {
-        let rgb = color.toRGB()
+        var rgb = color.toRGB()
         let hsv = color
+        
+        // Converting between RGB and HSV is not perfect, because of rounding errors.
+        // This checks if the old rgb (before the color update) is the same when converted from RGB -> HSV And not only just HSV -> RGB.
+        // If they are equal, the RGB colors will not be changed
+        let oldRgb = RGB.fromHEX(NSString(string: txtHex.stringValue))
+        
+        if let oldRgb = oldRgb {
+            if hsv.equals(hsv: oldRgb.toHSV()) {
+                Logger.debug(message: "Old RGB is the same!\nOriginal: \(oldRgb)\nConverted: \(rgb)")
+                rgb = oldRgb
+            }
+        }
+        
+        Logger.debug(message: "Colors HSV: \(hsv), RGB: \(rgb)")
         
         txtHex.stringValue = rgb.toHEX()
         
