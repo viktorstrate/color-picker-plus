@@ -90,7 +90,7 @@ class ColorGraphicsView: NSView {
         return NSRect(x: totalRect().minX, y: mainRect.minY - (Constants.verticalMargin + Constants.bottomSliderHeight), width: mainRect.width, height: Constants.bottomSliderHeight)
     }
     
-    // Draw functions
+    // MARK: Draw functions
     var hsbSquare: CGImage?
     var hsbSquareColor: HSV = HSV(h: 0, s: 1, v: 1)
     var hsbSquarePreviousComponet: HSBComponent? = nil
@@ -122,12 +122,10 @@ class ColorGraphicsView: NSView {
         context.draw(hsbSquare!, in: mainViewRect())
     }
     
-    func drawSecondarySlider(_ context: CGContext) {
-        
+    // MARK: Secondary slider functions
+    
+    func secondaryPointingArrowOrigin() -> CGPoint {
         let sliderRect = secondarySliderRect()
-        
-        let bar = HSBGen.createHSVBarContentImage(hsbComponent: selectedHSBComponent, hsv: currentColor)!
-        context.draw(bar, in: sliderRect)
         
         var x: CGFloat = 0
         
@@ -143,8 +141,27 @@ class ColorGraphicsView: NSView {
             break
         }
         
+        return CGPoint(x: x, y: sliderRect.maxY)
+    }
+    
+    func drawSecondarySlider(_ context: CGContext) {
         
-        drawPointingArrow(context, position: CGPoint(x: x, y: sliderRect.maxY))
+        let sliderRect = secondarySliderRect()
+        
+        let bar = HSBGen.createHSVBarContentImage(hsbComponent: selectedHSBComponent, hsv: currentColor)!
+        context.draw(bar, in: sliderRect)
+        
+        drawPointingArrow(context, position: secondaryPointingArrowOrigin())
+    }
+    
+    // MARK: Alpha slider functions
+    
+    func alphaPointingArrowOrigin() -> CGPoint {
+        let alphaRec = alphaSliderRect()
+        
+        let x = currentColor.a * alphaRec.width + totalRect().minX
+        
+        return CGPoint(x: x, y: alphaRec.maxY)
     }
     
     func drawAlphaSlider(_ context: CGContext) {
@@ -165,8 +182,7 @@ class ColorGraphicsView: NSView {
         
         context.resetClip()
         
-        let x = currentColor.a * alphaRec.width + totalRect().minX
-        drawPointingArrow(context, position: CGPoint(x: x, y: alphaRec.maxY))
+        drawPointingArrow(context, position: alphaPointingArrowOrigin())
     }
     
     func drawMainCircleIndicator(_ context: CGContext) {
@@ -198,6 +214,18 @@ class ColorGraphicsView: NSView {
         context.strokePath()
         
         context.resetClip()
+    }
+    
+    func pointingArrowBountingRect(position: CGPoint) -> CGRect {
+        let size: CGFloat = 0.25
+        
+        let offset = CGPoint(x: position.x, y: position.y - 30 * size - 6)
+        
+        let xMargin = size * 25
+        let yMargin = size * 30
+        
+        return CGRect(x: offset.x - xMargin, y: offset.y - yMargin, width: xMargin * 2, height: yMargin * 2)
+        
     }
     
     func drawPointingArrow(_ context: CGContext, position: CGPoint) {
@@ -261,15 +289,18 @@ extension ColorGraphicsView {
             return
         }
         
+        let secondaryHandle = pointingArrowBountingRect(position: secondaryPointingArrowOrigin())
+        let alphaHandle = pointingArrowBountingRect(position: alphaPointingArrowOrigin())
+        
         if (mainViewRect().contains(localPoint)) {
             selectedSlider = .Main
             updateMainCursor(locationInWindow: event.locationInWindow)
             
-        } else if (secondarySliderRect().contains(localPoint)) {
+        } else if (secondarySliderRect().contains(localPoint) || secondaryHandle.contains(localPoint)) {
             selectedSlider = .Secondary
             updateSecondaryCursor(locationInWindow: event.locationInWindow)
             
-        } else if (alphaSliderRect().contains(localPoint)) {
+        } else if (alphaSliderRect().contains(localPoint) || alphaHandle.contains(localPoint)) {
             selectedSlider = .Alpha
             updateAlphaCursor(locationInWindow: event.locationInWindow)
         } else {
