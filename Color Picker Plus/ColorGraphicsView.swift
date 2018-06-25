@@ -325,6 +325,10 @@ extension ColorGraphicsView {
         
     }
     
+    override func mouseUp(with event: NSEvent) {
+        self.delegate?.colorSettled(color: currentColor)
+    }
+    
     func updateMainCursor(locationInWindow: NSPoint) {
         var newColor = currentColor
         let mainWindowRect = convert(mainViewRect(), to: window?.contentView)
@@ -401,5 +405,9 @@ extension ColorGraphicsView {
 }
 
 protocol ChangeColorDelegate {
-    func colorChanged(color: HSV);
+    /// Called on every drag event
+    func colorChanged(color: HSV)
+    
+    /// Called when mouse is released
+    func colorSettled(color: HSV)
 }

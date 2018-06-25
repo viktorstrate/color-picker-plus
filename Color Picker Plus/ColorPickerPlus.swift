@@ -10,7 +10,7 @@ import AppKit
 
 public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     
-    @IBOutlet var pickerView: NSView!
+    @IBOutlet var pickerView: ContainerView!
     @IBOutlet weak var colorGraphicsView: ColorGraphicsView!
     @IBOutlet weak var currentColorView: CurrentColorView!
     
@@ -37,6 +37,8 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
         }
     }
     
+    var undoManager: ColorUndoManager?
+
     public func supportsMode(_ mode: NSColorPanel.Mode) -> Bool {
         return true
     }
@@ -56,7 +58,10 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
             radioHue.state = NSControl.StateValue.on
 
             colorGraphicsView.delegate = self
+            pickerView.colorPickerPlus = self
         }
+        
+        Logger.debug(message: "Picker view \(pickerView)")
         
         return pickerView
     }
@@ -67,7 +72,13 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
         Logger.debug(message: "Native - setColor(NSColor) called")
         let hsv = HSV(color: newColor)
         colorGraphicsView.currentColor = hsv
+
         if (!firstColorChange) {
+            
+            if self.undoManager == nil {
+                self.undoManager = ColorUndoManager(colorPickerPlus: self, initialColor: hsv)
+            }
+            
             colorChanged(color: hsv)
         } else {
             firstColorChange = false
@@ -91,7 +102,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     }
     
     public override var minContentSize: NSSize {
-        return NSSize(width: 570, height: 356)
+        return NSSize(width: 574, height: 356)
     }
     
     public override var buttonToolTip: String {
@@ -286,7 +297,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
 }
 
 extension ColorPickerPlus: ChangeColorDelegate {
-    
+
     func colorChanged(color: HSV) {
         
         currentColorView.color = color.toNSColor()
@@ -295,6 +306,10 @@ extension ColorPickerPlus: ChangeColorDelegate {
         
         super.colorPanel.color = color.toNSColor()
         
+    }
+    
+    func colorSettled(color: HSV) {
+        undoManager?.add(color: color)
     }
     
     func updateTextFields(color: HSV) {
@@ -370,7 +385,6 @@ extension ColorPickerPlus: ChangeColorDelegate {
         copyMenu.addItem(webHSLItem)
         
     }
-    
     
 }
 

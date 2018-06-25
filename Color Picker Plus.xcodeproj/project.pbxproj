@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3426013B20E159BA00767696 /* ColorUndoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3426013A20E159BA00767696 /* ColorUndoManager.swift */; };
 		344AA57720DFEBEA0045C7B2 /* Color Picker Plus.colorPicker in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3491077020D13DDC0058E50D /* Color Picker Plus.colorPicker */; };
 		34509CE420D328C400CF78C0 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE320D328C400CF78C0 /* RGB.swift */; };
 		34509CE620D3293500CF78C0 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE520D3293500CF78C0 /* HSV.swift */; };
 		34509CEA20D3ADDF00CF78C0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34509CE920D3ADDF00CF78C0 /* Logger.swift */; };
+		347FCA7B20E13FE000C6C34A /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FCA7A20E13FE000C6C34A /* ContainerView.swift */; };
 		3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491077920D13DF80058E50D /* ColorPickerPlus.swift */; };
 		3491078020D149740058E50D /* ToolbarIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 3491077F20D149740058E50D /* ToolbarIcon.tiff */; };
 		3491078220D14A080058E50D /* ColorPickerPlus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3491078120D14A080058E50D /* ColorPickerPlus.xib */; };
@@ -33,9 +35,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3426013A20E159BA00767696 /* ColorUndoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUndoManager.swift; sourceTree = "<group>"; };
 		34509CE320D328C400CF78C0 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		34509CE520D3293500CF78C0 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
 		34509CE920D3ADDF00CF78C0 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		347FCA7A20E13FE000C6C34A /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		3491077020D13DDC0058E50D /* Color Picker Plus.colorPicker */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Color Picker Plus.colorPicker"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3491077320D13DDC0058E50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3491077920D13DF80058E50D /* ColorPickerPlus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerPlus.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				34BC620E20D27DA90093CCFC /* CurrentColorView.swift */,
 				3491078720D1771D0058E50D /* HSBGen.swift */,
 				34509CE920D3ADDF00CF78C0 /* Logger.swift */,
+				347FCA7A20E13FE000C6C34A /* ContainerView.swift */,
+				3426013A20E159BA00767696 /* ColorUndoManager.swift */,
 			);
 			path = "Color Picker Plus";
 			sourceTree = "<group>";
@@ -172,6 +178,8 @@
 				3491077A20D13DF80058E50D /* ColorPickerPlus.swift in Sources */,
 				3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */,
 				34509CEA20D3ADDF00CF78C0 /* Logger.swift in Sources */,
+				3426013B20E159BA00767696 /* ColorUndoManager.swift in Sources */,
+				347FCA7B20E13FE000C6C34A /* ContainerView.swift in Sources */,
 				34509CE620D3293500CF78C0 /* HSV.swift in Sources */,
 				34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */,
 				3491078820D1771D0058E50D /* HSBGen.swift in Sources */,
