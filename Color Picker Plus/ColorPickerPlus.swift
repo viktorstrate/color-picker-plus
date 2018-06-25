@@ -359,28 +359,40 @@ extension ColorPickerPlus: ChangeColorDelegate {
         
         copyMenu.addItem(withTitle: "Copy", action: nil, keyEquivalent: "")
         
-        copyMenu.addItem(withTitle: "HEX - #\(rgb.toHEX())", action: nil, keyEquivalent: "c")
+        let hexItem = NSMenuItem(title: "HEX - #\(rgb.toHEX())", action: nil, keyEquivalent: "c")
+        hexItem.keyEquivalentModifierMask = [.control]
         
-        copyMenu.addItem(withTitle: "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)", action: nil, keyEquivalent: "r")
+        copyMenu.addItem(hexItem)
         
-        copyMenu.addItem(withTitle: "Float RGB - \(floatR), \(floatG), \(floatB)", action: nil, keyEquivalent: "R")
+        let rgbItem = NSMenuItem(title: "RGB - \(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue)", action: nil, keyEquivalent: "r")
+        rgbItem.keyEquivalentModifierMask = [.control]
         
-        copyMenu.addItem(withTitle: "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)", action: nil, keyEquivalent: "H")
+        copyMenu.addItem(rgbItem)
+
+        let floatRGBItem = NSMenuItem(title: "Float RGB - \(floatR), \(floatG), \(floatB)", action: nil, keyEquivalent: "R")
+        floatRGBItem.keyEquivalentModifierMask = [.control]
+        
+        copyMenu.addItem(floatRGBItem)
+
+        let hsvItem = NSMenuItem(title: "HSV - \(txtHue.stringValue), \(txtSaturation.stringValue), \(txtBrightness.stringValue)", action: nil, keyEquivalent: "h")
+        hsvItem.keyEquivalentModifierMask = [.control]
+        
+        copyMenu.addItem(hsvItem)
         
         copyMenu.addItem(NSMenuItem.separator())
         
         let webRGBItem = NSMenuItem(title: "Web RGB - rgb(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue))", action: nil, keyEquivalent: "w")
-        webRGBItem.keyEquivalentModifierMask = [.command, .option]
+        webRGBItem.keyEquivalentModifierMask = [.control]
         
         copyMenu.addItem(webRGBItem)
         
         let webRGBaItem = NSMenuItem(title: "Web RGBa - rgba(\(txtRed.stringValue), \(txtGreen.stringValue), \(txtBlue.stringValue), \(txtAlpha.stringValue))", action: nil, keyEquivalent: "w")
-        webRGBaItem.keyEquivalentModifierMask = [.command, .shift]
+        webRGBaItem.keyEquivalentModifierMask = [.control, .shift]
         
         copyMenu.addItem(webRGBaItem)
         
         let webHSLItem = NSMenuItem(title: "Web HSL - hsl(\(txtHue.stringValue), \(txtSaturation.stringValue)%, \(txtBrightness.stringValue)%)", action: nil, keyEquivalent: "w")
-        webHSLItem.keyEquivalentModifierMask = [.command, .option, .shift]
+        webHSLItem.keyEquivalentModifierMask = [.control, .option]
         
         copyMenu.addItem(webHSLItem)
         

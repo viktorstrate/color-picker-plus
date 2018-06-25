@@ -26,7 +26,7 @@ class ColorUndoManager  {
     }
 
     public func add(color: HSV) {
-        Logger.debug(message: "Add new color to clipboard: \(color)")
+        Logger.debug(message: "Add new color to undo stack: \(color)")
         
         if self.lastItem != current {
             Logger.debug(message: "Removing undo tail")

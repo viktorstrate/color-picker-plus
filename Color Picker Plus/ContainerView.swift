@@ -13,7 +13,7 @@ class ContainerView: NSView {
     var colorPickerPlus: ColorPickerPlus?
 
     override func awakeFromNib() {
-        Logger.debug(message: "Awoke from nib")
+        
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event: NSEvent) -> NSEvent? in
             self.keyDown(with: event)
             return event
@@ -22,6 +22,7 @@ class ContainerView: NSView {
             self.flagsChanged(with: event)
             return event
         }
+        
     }
     
     override func keyDown(with event: NSEvent) {
@@ -46,17 +47,14 @@ class ContainerView: NSView {
             Logger.debug(message: "CMD+SHIFT+Z pressed")
             colorPickerPlus.setColor(hsv: undoManager.redo())
         default:
+            super.keyDown(with: event)
             break
         }
         
     }
     
     override func flagsChanged(with event: NSEvent) {
-        
+        super.flagsChanged(with: event)
     }
     
-    override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        return true
-    }
-
 }
