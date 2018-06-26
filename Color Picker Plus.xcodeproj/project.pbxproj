@@ -19,6 +19,7 @@
 		3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491078520D164BF0058E50D /* ColorGraphicsView.swift */; };
 		3491078820D1771D0058E50D /* HSBGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3491078720D1771D0058E50D /* HSBGen.swift */; };
 		34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BC620E20D27DA90093CCFC /* CurrentColorView.swift */; };
+		34CEE9C820E267CC00D56DF9 /* ScrollingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CEE9C720E267CC00D56DF9 /* ScrollingTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,7 @@
 		3491078520D164BF0058E50D /* ColorGraphicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGraphicsView.swift; sourceTree = "<group>"; };
 		3491078720D1771D0058E50D /* HSBGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSBGen.swift; sourceTree = "<group>"; };
 		34BC620E20D27DA90093CCFC /* CurrentColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentColorView.swift; sourceTree = "<group>"; };
+		34CEE9C720E267CC00D56DF9 /* ScrollingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				34509CE920D3ADDF00CF78C0 /* Logger.swift */,
 				347FCA7A20E13FE000C6C34A /* ContainerView.swift */,
 				3426013A20E159BA00767696 /* ColorUndoManager.swift */,
+				34CEE9C720E267CC00D56DF9 /* ScrollingTextField.swift */,
 			);
 			path = "Color Picker Plus";
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				3491078620D164BF0058E50D /* ColorGraphicsView.swift in Sources */,
 				34509CEA20D3ADDF00CF78C0 /* Logger.swift in Sources */,
 				3426013B20E159BA00767696 /* ColorUndoManager.swift in Sources */,
+				34CEE9C820E267CC00D56DF9 /* ScrollingTextField.swift in Sources */,
 				347FCA7B20E13FE000C6C34A /* ContainerView.swift in Sources */,
 				34509CE620D3293500CF78C0 /* HSV.swift in Sources */,
 				34BC620F20D27DA90093CCFC /* CurrentColorView.swift in Sources */,

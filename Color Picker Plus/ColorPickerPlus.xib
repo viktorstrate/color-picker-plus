@@ -12,6 +12,10 @@
                 <outlet property="colorGraphicsView" destination="oqF-eh-Efd" id="Zdf-56-DLT"/>
                 <outlet property="copyPopUp" destination="JiC-in-bay" id="TOe-eh-SAC"/>
                 <outlet property="currentColorView" destination="620-J9-FsS" id="mk3-3i-PPR"/>
+                <outlet property="labelAlpha" destination="N0j-Qs-4Ja" id="qER-ZX-K3H"/>
+                <outlet property="labelBlue" destination="LLx-T4-DQa" id="Ala-0b-0tF"/>
+                <outlet property="labelGreen" destination="dA6-Hc-CcI" id="DCf-C1-NuE"/>
+                <outlet property="labelRed" destination="GxF-jy-luS" id="2zf-RO-Erm"/>
                 <outlet property="pickerView" destination="c22-O7-iKe" id="bhe-5X-9RU"/>
                 <outlet property="radioBrightness" destination="Nwa-wF-P3W" id="LvE-Il-wnk"/>
                 <outlet property="radioHue" destination="qXH-1l-JWm" id="Qbb-rE-Lcd"/>
@@ -239,7 +243,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="muO-Dc-Hpg">
                                     <rect key="frame" x="0.0" y="2" width="41" height="81"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GxF-jy-luS">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GxF-jy-luS" customClass="ScrollingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="-2" y="64" width="32" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Red:" id="nlM-sJ-HUc">
                                                 <font key="font" metaFont="system"/>
@@ -247,7 +251,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dA6-Hc-CcI">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dA6-Hc-CcI" customClass="ScrollingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="-2" y="32" width="45" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Green:" id="PzN-Yv-AjH">
                                                 <font key="font" metaFont="system"/>
@@ -255,7 +259,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LLx-T4-DQa">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LLx-T4-DQa" customClass="ScrollingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="-2" y="0.0" width="35" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Blue:" id="6fv-Xn-Vgs">
                                                 <font key="font" metaFont="system"/>
@@ -400,7 +404,7 @@
                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdX-rc-sbV">
                             <rect key="frame" x="142" y="48" width="108" height="22"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N0j-Qs-4Ja">
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N0j-Qs-4Ja" customClass="ScrollingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                     <rect key="frame" x="-2" y="3" width="43" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alpha:" id="19Z-jM-RTe">
                                         <font key="font" metaFont="system"/>

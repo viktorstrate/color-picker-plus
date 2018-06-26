@@ -19,6 +19,18 @@ class ColorUndoManager  {
     }
 
     var colorPickerPlus: ColorPickerPlus
+    
+    var canUndo: Bool {
+        get {
+            return current != 0
+        }
+    }
+    
+    var canRedo: Bool {
+        get {
+            return current != lastItem
+        }
+    }
 
     init(colorPickerPlus: ColorPickerPlus, initialColor color: HSV) {
         self.colorPickerPlus = colorPickerPlus

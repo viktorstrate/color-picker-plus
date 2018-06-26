@@ -28,6 +28,11 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     @IBOutlet weak var txtBlue: NSTextField!
     @IBOutlet weak var txtAlpha: NSTextField!
     
+    @IBOutlet weak var labelRed: ScrollingTextField!
+    @IBOutlet weak var labelGreen: ScrollingTextField!
+    @IBOutlet weak var labelBlue: ScrollingTextField!
+    @IBOutlet weak var labelAlpha: ScrollingTextField!
+    
     @IBOutlet weak var copyPopUp: NSPopUpButton!
     
     var firstColorChange = true
@@ -38,6 +43,8 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     }
     
     var undoManager: ColorUndoManager?
+    
+    var textFieldsNumberFormatter: NumberFormatter!
 
     public func supportsMode(_ mode: NSColorPanel.Mode) -> Bool {
         return true
@@ -55,10 +62,22 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
                 fatalError()
             }
 
+            // MARK: Initial UI Setup
             radioHue.state = NSControl.StateValue.on
 
             colorGraphicsView.delegate = self
             pickerView.colorPickerPlus = self
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .none
+            
+            self.textFieldsNumberFormatter = formatter
+            
+            labelRed.setup(inputField: txtRed, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
+            labelGreen.setup(inputField: txtGreen, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
+            labelBlue.setup(inputField: txtBlue, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
+            labelAlpha.setup(inputField: txtAlpha, formatter: formatter, colorPickerPlus: self)
+
         }
         
         Logger.debug(message: "Picker view \(pickerView)")
@@ -312,6 +331,23 @@ extension ColorPickerPlus: ChangeColorDelegate {
         undoManager?.add(color: color)
     }
     
+//    func updateColorFromTextFields() {
+//        
+//        let formatter = self.textFieldsNumberFormatter!
+//        
+//        // Check if HSV has changed
+//        
+//        let _newHue = formatter.number(from: txtHue.stringValue)
+//        let _newSat = formatter.number(from: txtSaturation.stringValue)
+//        let _newBright = formatter.number(from: txtBrightness.stringValue)
+//        
+//        guard let newHue = _newHue, let newSat = _newSat, let newBright = _newBright else {
+//            Logger.warn(message: "Hue values incorrect, ignoring")
+//            return
+//        }
+//
+//    }
+    
     func updateTextFields(color: HSV) {
         var rgb = color.toRGB()
         let hsv = color
@@ -332,8 +368,7 @@ extension ColorPickerPlus: ChangeColorDelegate {
         
         txtHex.stringValue = rgb.toHEX()
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
+        let formatter = self.textFieldsNumberFormatter!
         
         txtHue.stringValue = formatter.string(from: hsv.h as NSNumber)!
         txtSaturation.stringValue = formatter.string(from: (hsv.s * 100) as NSNumber)!

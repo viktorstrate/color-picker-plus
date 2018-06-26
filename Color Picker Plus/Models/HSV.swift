@@ -88,6 +88,8 @@ extension HSV {
     }
     
     func equals(hsv other: HSV) -> Bool {
+        
+        Logger.debug(message: "Comparing HSVs\nSelf: \(self)\nOther: \(other)")
 
         if self.h.rounded() != other.h.rounded() {
             Logger.debug(message: "Hue are not the same \(self.h) != \(other.h)")
@@ -99,12 +101,15 @@ extension HSV {
             return false
         }
         
+        Logger.debug(message: "Self rounded: \((self.v * 100).rounded()), other rounded: \((other.v * 100).rounded())")
         if (self.v * 100).rounded() != (other.v * 100).rounded() {
             Logger.debug(message: "Values are not the same \(self.v) != \(other.v)")
+            return false
         }
         
         if (self.a * 100).rounded() != (other.a * 100).rounded() {
             Logger.debug(message: "Values are not the same \(self.a) != \(other.a)")
+            return false
         }
         
         return true

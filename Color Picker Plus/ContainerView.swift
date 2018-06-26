@@ -26,12 +26,13 @@ class ContainerView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
-        Logger.debug(message: "Key down event")
-        
+
         guard let colorPickerPlus = colorPickerPlus else {
             Logger.error(message: "ContainerView could not find ColorPickerPlus")
             return
         }
+        
+        Logger.debug(message: "Check for undo/redo shortcut")
         
         guard let undoManager = colorPickerPlus.undoManager else {
             Logger.error(message: "ContainerView could not find UndoManager on ColorPickerPlus")
@@ -47,10 +48,28 @@ class ContainerView: NSView {
             Logger.debug(message: "CMD+SHIFT+Z pressed")
             colorPickerPlus.setColor(hsv: undoManager.redo())
         default:
-            super.keyDown(with: event)
             break
         }
         
+    }
+    
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        
+        guard let undoManager = colorPickerPlus?.undoManager else {
+            return false
+        }
+        
+        if event.characters == "z" {
+            if event.modifierFlags == [.command]  {
+                return undoManager.canUndo
+            }
+            
+            if event.modifierFlags == [.command, .shift] {
+                return undoManager.canRedo
+            }
+        }
+        
+        return false
     }
     
     override func flagsChanged(with event: NSEvent) {
