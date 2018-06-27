@@ -16,18 +16,16 @@ class ScrollingTextField: NSTextField {
     var minValue: CGFloat! = 0
     var maxValue: CGFloat! = 100
     var numberFormatter: NumberFormatter!
-    var colorPickerPlus: ColorPickerPlus!
-    
+
     /// Mouse sensitivity
     let sensitivity: CGFloat = 1
     
     var startX: CGFloat = 0
     var startValue: CGFloat = 0
     
-    func setup(inputField: NSTextField, formatter: NumberFormatter, colorPickerPlus: ColorPickerPlus, min: CGFloat = 0, max: CGFloat = 100) {
+    func setup(inputField: NSTextField, formatter: NumberFormatter, min: CGFloat = 0, max: CGFloat = 100) {
         self.inputField = inputField
         self.numberFormatter = formatter
-        self.colorPickerPlus = colorPickerPlus
         self.minValue = min
         self.maxValue = max
     }
@@ -54,7 +52,7 @@ class ScrollingTextField: NSTextField {
         newValue = max(newValue, minValue)
         
         inputField.stringValue = numberFormatter.string(from: NSNumber(value: Float(newValue))) ?? "ERR"
-        colorPickerPlus.colorFieldChanged(self.inputField)
+        ColorPickerPlus.shared.colorFieldChanged(self.inputField)
     }
     
 }

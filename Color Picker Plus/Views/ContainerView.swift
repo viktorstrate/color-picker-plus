@@ -10,7 +10,11 @@ import Cocoa
 
 class ContainerView: NSView {
     
-    var colorPickerPlus: ColorPickerPlus?
+    var colorPickerPlus: ColorPickerPlus {
+        get {
+            return ColorPickerPlus.shared
+        }
+    }
 
     override func awakeFromNib() {
         
@@ -27,11 +31,6 @@ class ContainerView: NSView {
     
     override func keyDown(with event: NSEvent) {
 
-        guard let colorPickerPlus = colorPickerPlus else {
-            Logger.error(message: "ContainerView could not find ColorPickerPlus")
-            return
-        }
-        
         Logger.debug(message: "Check for undo/redo shortcut")
         
         guard let undoManager = colorPickerPlus.undoManager else {
@@ -55,7 +54,7 @@ class ContainerView: NSView {
     
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
         
-        guard let undoManager = colorPickerPlus?.undoManager else {
+        guard let undoManager = colorPickerPlus.undoManager else {
             return false
         }
         

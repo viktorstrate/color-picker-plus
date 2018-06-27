@@ -135,7 +135,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJR-BT-YT1">
                                     <rect key="frame" x="94" y="0.0" width="48" height="86"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dmi-eZ-E7y">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dmi-eZ-E7y" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="64" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="dgw-DR-OQv">
                                                 <font key="font" metaFont="system"/>
@@ -146,7 +146,7 @@
                                                 <action selector="colorFieldChanged:" target="-2" id="ln4-BJ-Mlu"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RpC-Cw-ELb">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RpC-Cw-ELb" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="32" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aed-92-IxK">
                                                 <font key="font" metaFont="system"/>
@@ -157,7 +157,7 @@
                                                 <action selector="colorFieldChanged:" target="-2" id="auZ-Oo-gd4"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhq-oV-Ebz">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lhq-oV-Ebz" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="VxX-KQ-TLf">
                                                 <font key="font" metaFont="system"/>
@@ -282,7 +282,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDk-K3-R4f">
                                     <rect key="frame" x="47" y="0.0" width="48" height="86"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JEv-fu-S9J">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JEv-fu-S9J" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="64" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="L3j-0q-75F">
                                                 <font key="font" metaFont="system"/>
@@ -293,7 +293,7 @@
                                                 <action selector="colorFieldChanged:" target="-2" id="e6P-gD-kXm"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BVS-R3-iSJ">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BVS-R3-iSJ" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="32" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2gy-Q6-hgb">
                                                 <font key="font" metaFont="system"/>
@@ -304,7 +304,7 @@
                                                 <action selector="colorFieldChanged:" target="-2" id="ze9-ES-Bob"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OFF-dh-jID">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OFF-dh-jID" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="48" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="4lb-H6-cEE">
                                                 <font key="font" metaFont="system"/>
@@ -374,7 +374,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8PU-Py-5OS">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8PU-Py-5OS" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                     <rect key="frame" x="14" y="0.0" width="72" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="72" id="K3F-vH-G6A"/>
@@ -412,7 +412,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-9j-wMk">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b4l-9j-wMk" customClass="ColorRepresentingTextField" customModule="Color_Picker_Plus" customModuleProvider="target">
                                     <rect key="frame" x="44" y="0.0" width="48" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="r48-Uw-2CM"/>

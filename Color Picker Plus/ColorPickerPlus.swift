@@ -10,6 +10,8 @@ import AppKit
 
 public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     
+    static var shared: ColorPickerPlus!
+    
     @IBOutlet var pickerView: ContainerView!
     @IBOutlet weak var colorGraphicsView: ColorGraphicsView!
     @IBOutlet weak var currentColorView: CurrentColorView!
@@ -18,15 +20,15 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     @IBOutlet weak var radioSaturation: NSButton!
     @IBOutlet weak var radioBrightness: NSButton!
     
-    @IBOutlet weak var txtHue: NSTextField!
-    @IBOutlet weak var txtSaturation: NSTextField!
-    @IBOutlet weak var txtBrightness: NSTextField!
-    @IBOutlet weak var txtHex: NSTextField!
+    @IBOutlet weak var txtHue: ColorRepresentingTextField!
+    @IBOutlet weak var txtSaturation: ColorRepresentingTextField!
+    @IBOutlet weak var txtBrightness: ColorRepresentingTextField!
+    @IBOutlet weak var txtHex: ColorRepresentingTextField!
     
-    @IBOutlet weak var txtRed: NSTextField!
-    @IBOutlet weak var txtGreen: NSTextField!
-    @IBOutlet weak var txtBlue: NSTextField!
-    @IBOutlet weak var txtAlpha: NSTextField!
+    @IBOutlet weak var txtRed: ColorRepresentingTextField!
+    @IBOutlet weak var txtGreen: ColorRepresentingTextField!
+    @IBOutlet weak var txtBlue: ColorRepresentingTextField!
+    @IBOutlet weak var txtAlpha: ColorRepresentingTextField!
     
     @IBOutlet weak var labelRed: ScrollingTextField!
     @IBOutlet weak var labelGreen: ScrollingTextField!
@@ -56,6 +58,9 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
     
     public func provideNewView(_ initialRequest: Bool) -> NSView {
         if (initialRequest) {
+            
+            ColorPickerPlus.shared = self
+            
             let pickerNibName = "ColorPickerPlus"
             guard bundle.loadNibNamed(NSNib.Name(rawValue: pickerNibName), owner: self, topLevelObjects: nil) else {
                 Logger.error(message: "Could not find nib named \(pickerNibName)")
@@ -66,17 +71,18 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
             radioHue.state = NSControl.StateValue.on
 
             colorGraphicsView.delegate = self
-            pickerView.colorPickerPlus = self
-            
+
             let formatter = NumberFormatter()
             formatter.numberStyle = .none
             
             self.textFieldsNumberFormatter = formatter
             
-            labelRed.setup(inputField: txtRed, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
-            labelGreen.setup(inputField: txtGreen, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
-            labelBlue.setup(inputField: txtBlue, formatter: formatter, colorPickerPlus: self, min: 0, max: 255)
-            labelAlpha.setup(inputField: txtAlpha, formatter: formatter, colorPickerPlus: self)
+            labelRed.setup(inputField: txtRed, formatter: formatter, min: 0, max: 255)
+            labelGreen.setup(inputField: txtGreen, formatter: formatter, min: 0, max: 255)
+            labelBlue.setup(inputField: txtBlue, formatter: formatter, min: 0, max: 255)
+            labelAlpha.setup(inputField: txtAlpha, formatter: formatter)
+            
+            txtHex.isHexField = true
 
         }
         
