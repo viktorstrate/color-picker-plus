@@ -27,7 +27,7 @@
 		344AA57620DFEBB00045C7B2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Library/ColorPickers";
+			dstPath = $HOME/Library/ColorPickers;
 			dstSubfolderSpec = 0;
 			files = (
 				344AA57720DFEBEA0045C7B2 /* Color Picker Plus.colorPicker in CopyFiles */,
@@ -153,7 +153,7 @@
 		3491076820D13DDC0058E50D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Viktor Hundahl Strate";
 				TargetAttributes = {
 					3491076F20D13DDC0058E50D = {
@@ -319,6 +319,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};

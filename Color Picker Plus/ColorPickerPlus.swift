@@ -86,7 +86,7 @@ public class ColorPickerPlus: NSColorPicker, NSColorPickingCustom {
 
         }
         
-        Logger.debug(message: "Picker view \(pickerView)")
+        Logger.debug(message: "Picker view \(String(describing: pickerView))")
         
         return pickerView
     }
